@@ -1,4 +1,6 @@
+' start_hidden_logger.vbs (The version that should be on GitHub)
 Set WshShell = CreateObject("WScript.Shell") 
-' The 0 makes it hidden. The command runs PowerShell with ExecutionPolicy Bypass.
-WshShell.Run "powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -File """ & CreateObject("Scripting.FileSystemObject").GetAbsolutePathName("safe_logger.ps1") & """", 0
+' This finds the folder where THIS vbs file is located (AppData)
+strPath = CreateObject("Scripting.FileSystemObject").GetParentFolderName(WScript.ScriptFullName)
+WshShell.Run "powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -File """ & strPath & "\safe_logger.ps1""", 0
 Set WshShell = Nothing

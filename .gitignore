@@ -1,0 +1,4 @@
+# Ignore log files
+*log*.txt
+debug_log.txt
+*.log
