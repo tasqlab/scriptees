@@ -1,0 +1,112 @@
+@echo off
+title DNS Cache Viewer
+color 0b
+cls
+
+echo =================================================================
+echo                    DNS CACHE ANALYZER
+echo =================================================================
+echo.
+echo [+] Extracting live DNS records...
+
+:: Set file paths
+set "report_html=%~dp0dns_report.html"
+set "raw_dns=%temp%\raw_dns_temp.txt"
+
+:: Get the DNS Cache
+ipconfig /displaydns > "%raw_dns%" 2>nul
+
+:: Check if the file has content
+if not exist "%raw_dns%" (
+    echo [!] Error: Could not retrieve DNS cache.
+    pause
+    exit
+)
+
+:: Start building the HTML Report
+(
+    echo ^<!DOCTYPE html^>
+    echo ^<html^>
+    echo ^<head^>
+    echo ^<title^>DNS Cache Report^</title^>
+    echo ^<style^>
+    echo body { font-family: 'Segoe UI', sans-serif; background-color: #0d1117; color: #c9d1d9; padding: 20px; }
+    echo h1 { color: #58a6ff; border-bottom: 1px solid #30363d; padding-bottom: 10px; }
+    echo table { width: 100%%; border-collapse: collapse; margin-top: 20px; background-color: #161b22; }
+    echo th, td { text-align: left; padding: 12px; border-bottom: 1px solid #30363d; }
+    echo th { background-color: #21262d; color: #58a6ff; }
+    echo tr:hover { background-color: #1f2428; }
+    echo .name { color: #7ee787; font-weight: bold; }
+    echo .type { color: #d2a8ff; }
+    echo .ttl { color: #8b949e; }
+    echo ^</style^>
+    echo ^</head^>
+    echo ^<body^>
+    echo ^<h1^>🌐 Local DNS Cache Report^</h1^>
+    echo ^<p^>Generated on: %date% at %time%^</p^>
+    echo ^<table^>
+    echo ^<tr^>^<th^>Domain Name^</th^>^<th^>Record Type^</th^>^<th^>TTL (Seconds)^</th^>^</tr^>
+) > "%report_html%"
+
+:: Parse the raw DNS data
+setlocal enabledelayedexpansion
+set "current_name="
+set "current_type="
+
+for /f "usebackq tokens=*" %%a in ("%raw_dns%") do (
+    set "line=%%a"
+    
+    :: Look for Record Name
+    echo !line! | findstr /i /c:"Record Name" >nul
+    if !errorlevel! equ 0 (
+        for /f "tokens=3*" %%b in ("!line!") do set "current_name=%%c"
+    )
+    
+    :: Look for Record Type
+    echo !line! | findstr /i /c:"Record Type" >nul
+    if !errorlevel! equ 0 (
+        for /f "tokens=3*" %%b in ("!line!") do set "current_type=%%c"
+    )
+    
+    :: Look for Time To Live - This is the trigger to write the row
+    echo !line! | findstr /i /c:"Time To Live" >nul
+    if !errorlevel! equ 0 (
+        if defined current_name (
+            for /f "tokens=4*" %%b in ("!line!") do set "current_ttl=%%c"
+            
+            :: Clean up variables (remove trailing spaces)
+            set "current_name=!current_name: =!"
+            set "current_type=!current_type: =!"
+            set "current_ttl=!current_ttl: =!"
+
+            :: Write to HTML
+            echo ^<tr^>^<td class="name"^>!current_name!^</td^>^<td class="type"^>!current_type!^</td^>^<td class="ttl"^>!current_ttl!^</td^>^</tr^> >> "%report_html%"
+            
+            :: Reset for next entry
+            set "current_name="
+            set "current_type="
+        )
+    )
+)
+endlocal
+
+:: Close HTML tags
+(
+    echo ^</table^>
+    echo ^</body^>
+    echo ^</html^>
+) >> "%report_html%"
+
+:: Clean up temp file
+del "%raw_dns%" 2>nul
+
+echo.
+echo =================================================================
+echo [SUCCESS] Report generated!
+echo =================================================================
+echo.
+echo [+] Opening report in default browser...
+start "" "%report_html%"
+
+pause
+exit
