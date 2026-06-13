@@ -44,3 +44,26 @@
 [2026-06-13 19:20:11] QUEUED: tasqlab/scriptees: a bunch o scripts for random purposes - Google Chrome
 [2026-06-13 19:20:15] QUEUED: Desktop/Background
 [2026-06-13 19:20:15] QUEUED: Powershell
+[2026-06-13 19:20:22] QUEUED: how to push git. i have a big local folder and i want to push to github repo. i havent configured anything yet - Google Search - Google Chrome
+[2026-06-13 19:20:32] QUEUED: tasqlab/scriptees: a bunch o scripts for random purposes - Google Chrome
+[2026-06-13 19:20:33] QUEUED: Powershell
+[2026-06-13 19:20:39] QUEUED: how to push git. i have a big local folder and i want to push to github repo. i havent configured anything yet - Google Search - Google Chrome
+[SUCCESS] Batch sent: 16 items.
+[2026-06-13 19:20:43] QUEUED: Powershell
+[2026-06-13 19:20:53] QUEUED: tasqlab/scriptees: a bunch o scripts for random purposes - Google Chrome
+[2026-06-13 19:20:54] QUEUED: how to push git. i have a big local folder and i want to push to github repo. i havent configured anything yet - Google Search - Google Chrome
+[2026-06-13 19:20:58] QUEUED: Powershell
+[2026-06-13 19:21:01] QUEUED: tasqlab/scriptees: a bunch o scripts for random purposes - Google Chrome
+[2026-06-13 19:21:03] QUEUED: scriptees/README.md at main · tasqlab/scriptees - Google Chrome
+[2026-06-13 19:21:07] QUEUED: Desktop/Background
+[2026-06-13 19:21:07] QUEUED: activity_log.txt - japgame - Visual Studio Code
+[2026-06-13 19:21:10] QUEUED: Open Folder
+[2026-06-13 19:21:14] QUEUED: activity_log.txt - japgame - Visual Studio Code
+[2026-06-13 19:21:14] QUEUED: Visual Studio Code
+[2026-06-13 19:21:16] QUEUED: scripts - Visual Studio Code
+[2026-06-13 19:21:18] QUEUED: Welcome - scripts - Visual Studio Code
+[2026-06-13 19:21:22] QUEUED: readme.md - scripts - Visual Studio Code
+[2026-06-13 19:21:24] QUEUED: scriptees/README.md at main · tasqlab/scriptees - Google Chrome
+[2026-06-13 19:21:29] QUEUED: Powershell
+[2026-06-13 19:21:39] QUEUED: Desktop/Background
+[2026-06-13 19:21:39] QUEUED: readme.md - scripts - Visual Studio Code
